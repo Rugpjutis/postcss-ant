@@ -209,20 +209,18 @@ exports.default = function (node, localOpts, direction, decl, firstColumnSetLeng
   // The first column in a row will never have a margin-left. We add the length of the previously used size set on each iteration. Start on 1.
   if (localOpts.technique === 'nth') {
     if (getDirection() === 'width') {
-      (function () {
-        var collectedSetLengths = 1;
-        var selectors = [];
-        sizeSets.map(function (sizeSet) {
-          selectors.push(decl.parent.selector + ' > *:' + localOpts.children + '(' + totalSizes + 'n + ' + collectedSetLengths + ')');
-          collectedSetLengths += _postcss2.default.list.space(sizeSet).length;
-        });
+      var collectedSetLengths = 1;
+      var selectors = [];
+      sizeSets.map(function (sizeSet) {
+        selectors.push(decl.parent.selector + ' > *:' + localOpts.children + '(' + totalSizes + 'n + ' + collectedSetLengths + ')');
+        collectedSetLengths += _postcss2.default.list.space(sizeSet).length;
+      });
 
-        if (localOpts.support === 'float') {
-          (0, _ruleSetter2.default)(selectors.join(',\n' + decl.raws.before.substring(3)), ['clear: left', 'margin-left: 0'], decl);
-        } else {
-          (0, _ruleSetter2.default)(selectors.join(',\n' + decl.raws.before.substring(3)), ['margin-left: 0'], decl);
-        }
-      })();
+      if (localOpts.support === 'float') {
+        (0, _ruleSetter2.default)(selectors.join(',\n' + decl.raws.before.substring(3)), ['clear: left', 'margin-left: 0'], decl);
+      } else {
+        (0, _ruleSetter2.default)(selectors.join(',\n' + decl.raws.before.substring(3)), ['margin-left: 0'], decl);
+      }
     }
   }
 };

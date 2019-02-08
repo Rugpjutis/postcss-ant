@@ -8,16 +8,14 @@ Object.defineProperty(exports, "__esModule", {
 // Will revisit when someone complains. In the meantime, would really appreciate some insight on how to solve this and/or a PR.
 exports.default = function (decl, numerators, opts) {
   if (numerators.length) {
-    (function () {
-      var denominator = numerators.reduce(function (prev, curr) {
-        return prev + curr;
-      });
-      var ratioRegexp = new RegExp(opts.namespace + "ratio\\([^]+?\\)");
+    var denominator = numerators.reduce(function (prev, curr) {
+      return prev + curr;
+    });
+    var ratioRegexp = new RegExp(opts.namespace + "ratio\\([^]+?\\)");
 
-      numerators.forEach(function (numerator, i) {
-        decl.value = decl.value.replace(ratioRegexp, numerators[i] + "/" + denominator);
-      });
-    })();
+    numerators.forEach(function (numerator, i) {
+      decl.value = decl.value.replace(ratioRegexp, numerators[i] + "/" + denominator);
+    });
   }
 };
 
