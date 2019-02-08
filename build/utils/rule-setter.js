@@ -17,33 +17,34 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (selector, rules, decl, next) {
   // Creates .selector:nth-child(3n + 1) ... (3n + 2) ... (3n + 3) ... rules.
-  // We typically add these before so the user can override generate-grid easily if need be.
+  // We typically add  these before so the user can override generate-grid easily if need be.
   // But offer a next param for explicitly placing these in an intuitive place.
   if (next !== undefined) {
-    _postcss2.default.rule({
+    var add = _postcss2.default.rule({
       selector: selector
-    }).moveAfter(decl.parent);
+    });
+    decl.parent.parent.insertAfter(decl.parent, add);
 
     rules.map(function (rule) {
       var propVal = rule.split(':');
 
-      decl.clone({
+      decl.parent.next().append(decl.clone({
         prop: propVal[0].trim(),
         value: propVal[1].trim()
-      }).moveTo(decl.parent.next());
+      }));
     });
   } else {
-    _postcss2.default.rule({
+    var add = _postcss2.default.rule({
       selector: selector
-    }).moveBefore(decl.parent);
+    });
+    decl.parent.parent.insertBefore(decl.parent, add);
 
     rules.map(function (rule) {
       var propVal = rule.split(':');
-
-      decl.clone({
+      decl.parent.prev().append(decl.clone({
         prop: propVal[0].trim(),
         value: propVal[1].trim()
-      }).moveTo(decl.parent.prev());
+      }));
     });
   }
 };

@@ -91,17 +91,15 @@ var ant = _postcss2.default.plugin('postcss-ant', function () {
         support: opts.support,
         technique: opts.technique,
         children: opts.children
-      };
 
-      // Create object to pass to various helpers to determine if something was specified on a local level.
-      // Everything defaults to false and is converted to true if so.
-      var locallySpecified = {
+        // Create object to pass to various helpers to determine if something was specified on a local level.
+        // Everything defaults to false and is converted to true if so.
+      };var locallySpecified = {
         gutters: false,
         rows: false
-      };
 
-      // Local settings walk
-      var optsParsed = (0, _postcssValueParser2.default)(decl.value).walk(function (node) {
+        // Local settings walk
+      };var optsParsed = (0, _postcssValueParser2.default)(decl.value).walk(function (node) {
         var optsRegexp = new RegExp(localOpts.namespace + '(?=gutters?|rounders?|support|pluck|bump|technique|children)');
         if (node.type === 'function' && optsRegexp.test(node.value)) {
           node.type = 'word'; // transform existing function node into a word so we can replace its value with a string
