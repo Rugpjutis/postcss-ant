@@ -1,5 +1,8 @@
 <h3 align="center">postcss-ant</h3>
 
+<p align="left">
+  updated moveTo
+</p>
 <p align="center">
   <sup>Superpowered size-getter and grid generator.</sup>
 </p>
